@@ -23,6 +23,11 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+routes.get('^/$|/challenger',(req, res)=>{
+    res.sendFile(path.resolve(__dirname,
+        "./views/html/index.html"))
+})
   
 // use router
 app.use(Router);
