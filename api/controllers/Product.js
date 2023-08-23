@@ -4,6 +4,7 @@ const {
   insertProduct,
   updateProductById,
   deleteProductById,
+  patchProductById
 } = require("../models/productModel.js");
 
 // Import function from Product Model
@@ -68,10 +69,25 @@ const deleteProduct = (req, res) => {
   });
 };
 
+
+//Update Product By (PATCH) so that it changes the data in a row (replace)
+const patchProduct = (req, res) => {
+  const data = req.body;
+  const id = req.params.id;
+  patchProductById(data, id, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
 module.exports = {
   showProducts,
   showProductById,
   createProduct,
   updateProduct,
   deleteProduct,
+  patchProduct
 };

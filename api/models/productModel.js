@@ -88,10 +88,29 @@ const deleteProductById = (id, result) => {
     });   
 }
 
+//patch products Edit data in a row
+const patchProductById = (data, id, result) => {
+    const query = `
+      UPDATE Products
+      SET ?
+      WHERE productID = ?;
+    `;
+  
+    db.query(query, [data, id], (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    });
+  };
+
 module.exports = {
     getProducts,
     getProductById,
     insertProduct,
     updateProductById,
-    deleteProductById
+    deleteProductById,
+    patchProductById
 }

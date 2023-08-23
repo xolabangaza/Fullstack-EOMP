@@ -11,6 +11,7 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
+  patchProduct
 } = productController;
 // Get All Product
 router.get("/products", showProducts);
@@ -26,6 +27,9 @@ router.put("/products/:id", updateProduct);
 
 // Delete Product
 router.delete("/products/:id", deleteProduct);
+
+//Patch to change 
+router.patch("/products/:id", patchProduct);
 
 
 // export default router
