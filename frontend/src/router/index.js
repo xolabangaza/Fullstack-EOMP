@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import SingleProductView from '@/components/SingleProductView.vue';
+
 
 const routes = [
   {
@@ -31,17 +33,10 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ProductsView.vue'),
   },
   {
-    path: "/single",
+    path: "/single/:productID", // Use the correct path
     name: "single",
-    component: () => import(/* webpackChunkName: "about" */ '../components/Single.vue'),
-  },
-  {
-    path: "/products/:productID", // Dynamic segment for product ID
-    name: "productDetails",
-    component: ProductDetails,
-    props: true, // Pass route params as props to the component
-  },
-  
+    component: SingleProductView, // Use the correct component name
+  },  
 ]
 
 const router = createRouter({

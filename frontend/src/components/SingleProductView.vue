@@ -1,76 +1,39 @@
-
 <template>
-<div>
-<!-- <template>
-  <div class="container">
-    <div class="row justify-content-between">
-      <div class="card my-3 rounded rounded-5" style="width: 18rem;">
-        <img :src="product.productUrl" class="card-img-top rounded rounded-5" style="width: 17rem;" :alt="product.productName">
-        <div class="card-body">
-          <h5 class="card-title">{{ product.productName }}</h5>
-          <p class="card-text">{{ product.productPrice }}</p>
-          <p class="card-text">{{ product.category }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</template> -->
-<!-- 
-<script>
-export default {
-  name: "ProductDetails",
-  computed: {
-    product() {
-      const productId = this.$route.params.id;
-      return this.$store.state.myProjects.find(project => project.projectID === parseInt(productId));
-    },
-  },
-};
-</script> -->
-
   <div>
-    <h2 class="text-center py-3">Product Details</h2>
-   <div v-if="product">
-      <div class="product-details">
-        <div class="product-image">
-          <img :src="product.productUrl" :alt="product.productName" />
-        </div>
-        <div class="product-info">
-          <h3>{{ product.productName }}</h3>
-          <p>Price: {{ product.productPrice }}</p>
-          <p>Stock: {{ product.productStock }}</p>
-          <p>Category: {{ product.category }}</p>
-        </div>
+    <div v-if="product" class="product-details">
+      <div class="product-image">
+        <img :src="product.productUrl" :alt="product.productName" />
       </div>
-      <p class="product-description">{{ product.productDescription }}</p>
+      <div class="product-info">
+        <h3>{{ product.productName }}</h3>
+        <p>Price: {{ product.productPrice }}</p>
+        <p>Stock: {{ product.productStock }}</p>
+        <p>Category: {{ product.category }}</p>
+      </div>
     </div>
     <div v-else>
       <p>Loading...</p>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
-  name: "ProductDetails",
-  data() {
-    return {
-      product: null,
-    };
-  },
+  name: "SingleProductView",
   computed: {
-    productID() {
-      return this.$route.params.productID;
+    ...mapState(["myProduct"]), // Map the myProduct state to the component
+    product() {
+      return this.myProduct;
     },
   },
   methods: {
     ...mapActions(["fetchProductDetails"]), // Map the action to the component
     async fetchProduct() {
       try {
-        this.product = await this.fetchProductDetails(this.productID);
+        const productID = this.$route.params.productID;
+        await this.fetchProductDetails(productID);
       } catch (error) {
         console.error("Error fetching product details:", error);
       }
@@ -81,9 +44,6 @@ export default {
   },
 };
 </script>
-
-
-
 
 <style scoped>
 p {

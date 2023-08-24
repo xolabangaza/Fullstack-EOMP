@@ -41,7 +41,8 @@
           <td>{{ project.productStock }}</td>
           <td>{{ project.productUrl }}</td>
           <td>{{ project.category }}</td>
-          <td><button @click="populateForm(project)">Edit</button></td>
+          <td><UpdateProductVue :editProduct="editProduct"/></td>
+
           <td><button @click="editProduct">Edit Product</button></td>
           <!-- <td><button @click="editProduct(product)"></button></td> -->
           <td>
@@ -52,170 +53,172 @@
     </table>
   <div>
       <div v-if="myProjects" class=" row p-4">
-        <AddProduct/>
       </div>
       <div v-else>Processing...</div>
     </div>
   </div>
 </template>
 <script>
-  import AddProduct from "@/components/Add-Product.vue";
-    export default {
-    computed: {
-      myProjects() {
+  // import AddProduct from "@/components/Add-Product.vue";
+  //   export default {
+  //   computed: {
+  //     myProjects() {
+  //     },
+  //   },
+  //   mounted() {
+  //   },
+  //   components: { AddProduct },
+  // };
+import axios from "axios";
+import UpdateProductVue from '../components/Update-Product.vue';
+export default {
+  components: {UpdateProductVue},
+  computed: {
+    myProjects() {
+      return this.$store.state.myProjects;
+    },
+  },
+  mounted() {
+    this.$store.dispatch("getmyProjects");
+  },
+  name: "",
+  props: {},
+  data() {
+    return {
+      form: {
+        productName: "",
+        productPrice: "",
+        productStock: "",
+        productUrl: "",
+        category: "",
       },
+    };
+  },
+  methods: {
+    async fetchProducts() {
+      try {
+        axios
+          .get("https://fullstackeomp-0asf.onrender.com/products/:id")
+          .then(function (response) {
+            const products = response.data;
+            const table = document.getElementById("productTable");
+            products.forEach(function (product) {
+              const row = table.insertRow();
+              row.insertCell(1).textContent = product.productName;
+              row.insertCell(2).textContent =
+                "$" + product.productPrice.toFixed(2);
+              row.insertCell(3).textContent = product.productStock;
+              row.insertCell(4).textContent = product.productUrl;
+              row.insertCell(5).textContent = product.category;
+            });
+          })
+          .catch(function (error) {
+            console.error("Error fetching products:", error);
+          });
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        const response = await axios.get("https://fullstackeomp-0asf.onrender.com/products");
+        this.products = response.data;
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     },
-    mounted() {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    async submit() {
+      try {
+        if (this.form.productID) {
+          // Update existing product
+          // await axios.put(
+          //   `https://fullstackeomp-0asf.onrender.com/products/${this.form.productID}`,
+          //   {
+          //     productName: this.form.productName,
+          //     productPrice: this.form.productPrice,
+          //     productStock: this.form.productStock,
+          //     productUrl: this.form.productUrl,
+          //     category: this.form.category,
+          //   }
+          // );
+          alert("Product updated successfully");
+        } else {
+          // Add new product
+          await axios.post(`https://fullstackeomp-0asf.onrender.com/productsAdd`, {
+            productName: this.form.productName,
+            productPrice: this.form.productPrice,
+            productStock: this.form.productStock,
+            productUrl: this.form.productUrl,
+            category: this.form.category,
+          });
+          alert("Product added successfully");
+        }
+        this.resetForm();
+        window.location.reload();
+      } catch (error) {
+        console.error("Error submitting product:", error);
+      }
+      // try {
+      //   await axios.post(`http://localhost:5000/productsAdd`, {
+      //     productName: this.form.productName,
+      //     productPrice: this.form.productPrice,
+      //     productStock: this.form.productStock,
+      //     productUrl: this.form.productUrl,
+      //     category: this.form.category,
+      //   });
+      //   alert("Product updated successfully");
+      //   console.log("Product updated successfully");
+      //   this.resetForm(); // Call the resetForm() method to clear the form
+      //   window.location.reload();
+      // } catch (error) {
+      //   console.error("Error updating product:", error);
+      // }
     },
-    components: { AddProduct },
-  };
-// import axios from "axios";
-// export default {
-//   computed: {
-//     myProjects() {
-//       return this.$store.state.myProjects;
-//     },
-//   },
-//   mounted() {
-//     this.$store.dispatch("getmyProjects");
-//   },
-//   name: "",
-//   props: {},
-//   data() {
-//     return {
-//       form: {
-//         productName: "",
-//         productPrice: "",
-//         productStock: "",
-//         productUrl: "",
-//         category: "",
-//       },
-//     };
-//   },
-//   methods: {
-//     async fetchProducts() {
-//       try {
-//         axios
-//           .get("https://fullstackeomp-0asf.onrender.com/products/:id")
-//           .then(function (response) {
-//             const products = response.data;
-//             const table = document.getElementById("productTable");
-//             products.forEach(function (product) {
-//               const row = table.insertRow();
-//               row.insertCell(1).textContent = product.productName;
-//               row.insertCell(2).textContent =
-//                 "$" + product.productPrice.toFixed(2);
-//               row.insertCell(3).textContent = product.productStock;
-//               row.insertCell(4).textContent = product.productUrl;
-//               row.insertCell(5).textContent = product.category;
-//             });
-//           })
-//           .catch(function (error) {
-//             console.error("Error fetching products:", error);
-//           });
-//         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//         const response = await axios.get("https://fullstackeomp-0asf.onrender.com/products");
-//         this.products = response.data;
-//       } catch (error) {
-//         console.error("Error fetching products:", error);
-//       }
-//     },
-//     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//     async submit() {
-//       try {
-//         if (this.form.productID) {
-//           // Update existing product
-//           await axios.put(
-//             `https://fullstackeomp-0asf.onrender.com/products/${this.form.productID}`,
-//             {
-//               productName: this.form.productName,
-//               productPrice: this.form.productPrice,
-//               productStock: this.form.productStock,
-//               productUrl: this.form.productUrl,
-//               category: this.form.category,
-//             }
-//           );
-//           alert("Product updated successfully");
-//         } else {
-//           // Add new product
-//           await axios.post(`https://fullstackeomp-0asf.onrender.com/productsAdd`, {
-//             productName: this.form.productName,
-//             productPrice: this.form.productPrice,
-//             productStock: this.form.productStock,
-//             productUrl: this.form.productUrl,
-//             category: this.form.category,
-//           });
-//           alert("Product added successfully");
-//         }
-//         this.resetForm();
-//         window.location.reload();
-//       } catch (error) {
-//         console.error("Error submitting product:", error);
-//       }
-//       // try {
-//       //   await axios.post(`http://localhost:5000/productsAdd`, {
-//       //     productName: this.form.productName,
-//       //     productPrice: this.form.productPrice,
-//       //     productStock: this.form.productStock,
-//       //     productUrl: this.form.productUrl,
-//       //     category: this.form.category,
-//       //   });
-//       //   alert("Product updated successfully");
-//       //   console.log("Product updated successfully");
-//       //   this.resetForm(); // Call the resetForm() method to clear the form
-//       //   window.location.reload();
-//       // } catch (error) {
-//       //   console.error("Error updating product:", error);
-//       // }
-//     },
-//     resetForm() {
-//       // Reset the form after successful update
-//       this.form.productName = "";
-//       this.form.productPrice = "";
-//       this.form.productStock = "";
-//       this.form.productUrl = "";
-//       this.form.category = "";
-//     },
-//     populateForm(product) {
-//       this.form.productName = product.productName;
-//       this.form.productPrice = product.productPrice;
-//       this.form.productStock = product.productStock;
-//       this.form.productUrl = product.productUrl;
-//       this.form.category = product.category;
-//     },
-//     async deleteProduct(productID) {
-//       try {
-//         const response = await axios.delete(
-//           `https://fullstackeomp-0asf.onrender.com/products/${productID}`
-//         );
-//         alert("Product deleted successfully");
-//         this.$store.dispatch("getmyProjects");
-//       } catch (error) {
-//         console.error("Error deleting product:", error);
-//       }
-//     },
-//   },
-//   async editProduct() {
-//     try {
-//       const editedProduct = {
-//         productName: this.form.productName,
-//         productPrice: this.form.productPrice,
-//         productStock: this.form.productStock,
-//         productUrl: this.form.productUrl,
-//         category: this.form.category,
-//       };
-//       const response = await axios.patch(
-//         `https://fullstackeomp-0asf.onrender.com/products/${this.form.productID}`,
-//         editedProduct
-//       );
-//       alert("Product updated successfully");
-//       this.$store.dispatch("getmyProjects"); // Refresh product list
-//       this.resetForm();
-//     } catch (error) {
-//       console.error("Error editing product:", error);
-//     }
-//   },
-// };
+    resetForm() {
+      // Reset the form after successful update
+      this.form.productName = "";
+      this.form.productPrice = "";
+      this.form.productStock = "";
+      this.form.productUrl = "";
+      this.form.category = "";
+    },
+    populateForm(product) {
+      this.form.productName = product.productName;
+      this.form.productPrice = product.productPrice;
+      this.form.productStock = product.productStock;
+      this.form.productUrl = product.productUrl;
+      this.form.category = product.category;
+    },
+    async deleteProduct(productID) {
+      try {
+        const response = await axios.delete(
+          `https://fullstackeomp-0asf.onrender.com/products/${productID}`
+        );
+        alert("Product deleted successfully");
+        this.$store.dispatch("getmyProjects");
+         window.location.reload();
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
+    },
+  },
+  async editProduct() {
+    try {
+      const editedProduct = {
+        productName: this.form.productName,
+        productPrice: this.form.productPrice,
+        productStock: this.form.productStock,
+        productUrl: this.form.productUrl,
+        category: this.form.category,
+      };
+      const response = await axios.patch(
+        `https://fullstackeomp-0asf.onrender.com/products/${this.form.productID}`,
+        editedProduct
+      );
+      alert("Product updated successfully");
+      this.$store.dispatch("getmyProjects"); // Refresh product list
+      this.resetForm();
+    } catch (error) {
+      console.error("Error editing product:", error);
+    }
+  },
+};
 </script>
 <style scoped>
 h1 {

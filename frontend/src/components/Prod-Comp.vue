@@ -1,29 +1,28 @@
 <template>
-<div>  
-  <div class="container">
-      <div class="row justify-content-between">
-
-<router-link :to="'/single'">
-  <div class="card my-3 rounded rounded-5" style="width: 18rem;" v-for="project in myProjects" :key="project.projectID">
-          <img :src="project.productUrl" class="card-img-top rounded rounded-5" style="width: 17rem;" :alt="project.productName ">
-          <div class="card-body">
-            <h5 class="card-title">{{project.productName}}</h5>
-            <p class="card-text">{{ project.productPrice}}</p>
-             <p class="card-text">{{project.category }}</p>
-          </div>
+  <div>
+    <div v-if="myProjects" class="row p-4">
+      <div v-for="product in products" :key="product.projectID" class="card my-1 rounded rounded-2 mb-3" style="width: 19rem; height: 30rem">
+        <img :src="product.productUrl" class="card-img-top rounded rounded-2" style="width: 18rem;" :alt="product.productName">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.productName }}</h5>
+          <h6 class="card-text">{{ product.category }}</h6>
+          <h6 class="card-tex">R {{ product.productPrice }}.00</h6>
+          <button><router-link :to="`/${product.projectID}`">View Details</router-link></button>
         </div>
-</router-link>
       </div>
     </div>
-</div>
+    <div v-else>Processing...</div>
+  </div>
 </template>
+
 <script>
-import SingleVue from './Single.vue';
+import { mapState } from "vuex";
+
 export default {
-  name: "MyProjects",
   computed: {
-    myProjects() {
-      return this.$store.state.myProjects;
+    ...mapState(["myProjects"]), 
+    products() {
+      return this.myProjects || []; 
     },
   },
   mounted() {
@@ -32,102 +31,34 @@ export default {
 };
 </script>
 <style scoped>
+
 p {
-  color: #CBE4DE;
+  color: black;
 }
 .card {
   display: flex;
   width: 20rem;
-  background-color: rgb(230, 227, 230);
+  height: 33rem;
+  background-color: white;
+  margin-left: 40px;
 }
-.card h4, .card p{
+.card h5, .card h6{
   margin: auto;
 }
- 
-.btns{
-  display: flex;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
-}
 
-.btn a{
-    text-decoration: none;
-}
-
-.btn{
-   background-color:blueviolet;
-    border-radius: 0.5rem;
-    width: 6rem;
-    height: 2rem;
-    padding: 0.5rem;
-} 
-
-
-/*///////////////////////////////////////////*/
-.cardStyle {
-  border-radius: 0.5rem;
-}
 button {
-  margin-top: 0.8rem;
-  margin-left: 0.8rem;
-  border-radius: 2rem;
+  margin-bottom: 10rem;
+  margin-top: 4px;
+  margin-left: 50px;
+  border: 3px solid  #f1b4e2;
+  border-radius: 2rem ;
   text-align: center;
-  background-color: #CBE4DE;
-}
-.animate__animated.animate__flash {
-  color: #2E4F4F;
-  background-color: #CBE4DE;
-  --animate-duration: 10s;
-}
-@media screen and(max-width: 300px) {
-  .animate__animated.animate__flash {
-    animation-play-state: paused;
+  background-color: #f1b4e2;
+  box-shadow: 2px 6px 4px 2px  #ede1ea;
   }
+
+button:hover{
+  background: #cb47b1;
 }
-.animate__animated.animate__flash:hover {
-  color: #2E4F4F;
-}
-.cardStyle {
-  background-color: #2E4F4F;
-  height: 25rem;
-}
-#con2 p {
-  visibility: hidden;
-}
-p {
-  font-size: larger;
-  text-decoration: none !important;
-  color: #CBE4DE;
-  visibility: hidden;
-}
-.tags {
-  visibility: hidden;
-}
-#con2:hover {
-  height: 100%;
-  width: 100%;
-  visibility: hidden;
-}
-#con2:hover {
-  visibility: visible;
-}
-#con2:hover button {
-  visibility: visible;
-}
-#con2:hover .tags {
-  visibility: visible;
-}
-#con2:hover p {
-  visibility: visible;
-}
-#con2:hover a {
-  visibility: visible;
-}
-.img {
-  border-top-right-radius: 0.5rem;
-  border-top-left-radius: 0.5rem;
-  width: 100%;
-  height: 15rem;
-}
+
 </style>
