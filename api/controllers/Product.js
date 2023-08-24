@@ -4,7 +4,8 @@ const {
   insertProduct,
   updateProductById,
   deleteProductById,
-  patchProductById
+  patchProductById,
+  getProductsSorted,
 } = require("../models/productModel.js");
 
 // Import function from Product Model
@@ -83,11 +84,25 @@ const patchProduct = (req, res) => {
   });
 };
 
+// Function to show sorted products
+const showProductsSorted = (req, res) => {
+  const orderBy = req.params.orderBy; // 'asc' or 'desc'
+
+  getProductsSorted(orderBy, (err, results) => {
+    if (err) {
+      res.status(500).json({ status: 500, msg: "An error occurred; please try again later." });
+    } else {
+      res.json(results);
+    }
+  });
+};
+
 module.exports = {
   showProducts,
   showProductById,
   createProduct,
   updateProduct,
   deleteProduct,
-  patchProduct
+  patchProduct,
+  showProductsSorted
 };

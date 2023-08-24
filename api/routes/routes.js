@@ -11,10 +11,11 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-  patchProduct
+  patchProduct,
+  showProductsSorted
 } = productController;
 // Get All Product
-router.get("/products", showProducts);
+router.get("/products", showProducts,);
 
 // Get Single Product
 router.get("/products/:id", showProductById);
@@ -30,6 +31,9 @@ router.delete("/products/:id", deleteProduct);
 
 //Patch to change 
 router.patch("/products/:id", patchProduct);
+
+// Add a new route for sorted products
+router.get("/products/:orderBy", showProductsSorted);
 
 
 // export default router

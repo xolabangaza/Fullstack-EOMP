@@ -6,6 +6,48 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>hello world</h2>
+    
+<table>
+    <tr>
+      <th>Route</th>
+      <th>Role</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>GET /products</td>
+      <td>showProducts</td>
+      <td>Get all products.</td>
+    </tr>
+    <tr>
+      <td>GET /products/:id</td>
+      <td>showProductById</td>
+      <td>Get a single product by its ID.</td>
+    </tr>
+    <tr>
+      <td>POST /productsAdd</td>
+      <td>createProduct</td>
+      <td>Create a new product.</td>
+    </tr>
+    <tr>
+      <td>PUT /products/:id</td>
+      <td>updateProduct</td>
+      <td>Update an existing product by its ID.</td>
+    </tr>
+    <tr>
+      <td>DELETE /products/:id</td>
+      <td>deleteProduct</td>
+      <td>Delete a product by its ID.</td>
+    </tr>
+    <tr>
+      <td>PATCH /products/:id</td>
+      <td>patchProduct</td>
+      <td>Update specific fields of a product by its ID.</td>
+    </tr>
+    <tr>
+      <td>GET /products/:orderBy</td>
+      <td>showProductsSorted</td>
+      <td>Get all products sorted by price in specified order.</td>
+    </tr>
+  </table>
 </body>
 </html>

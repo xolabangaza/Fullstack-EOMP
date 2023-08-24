@@ -106,11 +106,25 @@ const patchProductById = (data, id, result) => {
     });
   };
 
+  //sort products
+  const showProductsSorted = (req, res) => {
+    const orderBy = req.params.orderBy; // 'asc' or 'desc'
+  
+    getProductsSorted(orderBy, (err, results) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(results);
+      }
+    });
+  };
+
 module.exports = {
     getProducts,
     getProductById,
     insertProduct,
     updateProductById,
     deleteProductById,
-    patchProductById
+    patchProductById,
+    showProductsSorted 
 }
