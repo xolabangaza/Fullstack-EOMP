@@ -32,10 +32,6 @@ router.delete("/products/:id", deleteProduct);
 //Patch to change 
 router.patch("/products/:id", patchProduct);
 
-// Add a new route for sorted products
-router.get("/products/:orderBy", showProductsSorted);
-
-
 // export default router
  module.exports = router;
 
