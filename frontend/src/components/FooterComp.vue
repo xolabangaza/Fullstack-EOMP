@@ -36,7 +36,7 @@
 
         </div>
         <div class="copyright">
-            <p> copyright ©️ made by Xola Bangaza</p>
+            <p> copyright ©️ 2023 made by Xola Bangaza</p>
         </div>
       </footer>
 </template>

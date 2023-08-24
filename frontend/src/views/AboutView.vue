@@ -1,7 +1,7 @@
 <template>
 <section id="about">
             <div class="container text-center">
-              <h2 class="text-center">About Serve-Style</h2>
+              <h2 class="text-center animate__animated animate__heartBeat">About Serve-Style</h2>
               <p>Welcome to Serve-Style, your one-stop destination for trendy and fashionable apparel.<br> We believe that everyone deserves to express their unique style through their clothing,<br> and we're here to provide you with a wide range of options that cater to different tastes and <br>preferences.</p>
               <p>Our mission is to offer high-quality clothing at affordable prices, <br>without compromising on style or comfort. Whether you're looking for Tennis-casual wear,<br>  or something in between, we've got you covered.</p>
               <p>At our store, we carefully curate our collections to stay up-to-date with the latest Sport fashion trends.<br> We source our products from trusted suppliers who share our commitment to quality<br> and ethical practices. Rest assured that every item you find in our store has been selected with care.</p>

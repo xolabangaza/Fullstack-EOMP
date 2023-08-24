@@ -25,6 +25,22 @@ const routes = [
     name: "admin",
     component: () => import(/* webpackChunkName: "about" */ '../views/AdminView.vue'),
   },
+  {
+    path: "/products",
+    name: "products",
+    component: () => import(/* webpackChunkName: "about" */ '../views/ProductsView.vue'),
+  },
+  {
+    path: "/single",
+    name: "single",
+    component: () => import(/* webpackChunkName: "about" */ '../components/Single.vue'),
+  },
+  {
+    path: "/products/:productID", // Dynamic segment for product ID
+    name: "productDetails",
+    component: ProductDetails,
+    props: true, // Pass route params as props to the component
+  },
   
 ]
 

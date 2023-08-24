@@ -48,7 +48,7 @@
       </button>
     </div>
 
-        <h2>Featured Products</h2>
+        <h2 class="animate__animated animate__heartBeat">Featured Products</h2>
     <div class="first-container">
       <div class="product">
         <img
