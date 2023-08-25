@@ -1,6 +1,7 @@
 const express = require("express");
 const productController = require("../controllers/Product");
-
+const userController = require("../controllers/User");
+const bodyParser = require('body-parser');
 
 
 // init express router
@@ -11,9 +12,24 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-  patchProduct,
-  showProductsSorted
+  patchProduct
 } = productController;
+
+// const { showUsers,
+//   showUserById,
+//   createRegister,
+//   loginUser,
+//   deleteUser,
+//   patchUser,
+//   updateUser} = userController;
+const {
+  showUsers,
+  showUserById,
+  createRegister,
+  loginUser,
+  updateUserById,
+  deleteUserById,
+} = userController;
 // Get All Product
 router.get("/products", showProducts,);
 
@@ -31,6 +47,25 @@ router.delete("/products/:id", deleteProduct);
 
 //Patch to change 
 router.patch("/products/:id", patchProduct);
+
+//User routes
+// router.get('/users', showUsers);
+// router.get('/users/:id', showUserById);
+// router.post('/register', createRegister);
+// router.post('/user/:id', loginUser);
+// router.delete('/user/:id', deleteUser);
+// router.patch('/user/:id', updateUser);
+
+router.get("/products", showProducts);
+router.get("/users", showUsers);
+router.get("/users/:id", showUserById);
+router.post("/register", createRegister);
+router.post("/user/:id", loginUser);
+
+// router.post('/login',
+// bodyParser.json(), (req, res)=>{
+//   users.login(req, res)
+// })
 
 // export default router
  module.exports = router;

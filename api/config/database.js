@@ -11,7 +11,8 @@ require('dotenv').config();
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
     multipleStatements: true,
-    connectionLimit: 80000090 
+    connectionLimit: 80000090,
+    secretKEY: process.env.DB_SECRET
 });
   
 module.exports = db; 
