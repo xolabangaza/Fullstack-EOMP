@@ -109,7 +109,6 @@ export default {
 .contact{
     background-image: url(https://i.postimg.cc/Tw1QFSTG/desktop-wallpaper-novak-djokovic-serbian-tennis-players-atp-neon-atp.jpg);
     background-position:center;
-    /* box-shadow: 6px 6px 6px 6px purple; */
     display: flex;
     flex-direction: column;
     width: 30%;

@@ -119,15 +119,7 @@ export default {
       this.form.productUrl = product.productUrl;
       this.form.category = product.category;
     },
-    // async deleteProduct(productID) {
-    //   try {
-    //     await axios.delete(`https://fullstackeomp-0asf.onrender.com/${productID}`);
-    //     alert("Product deleted successfully");
-    //     this.$store.dispatch("getmyProjects");
-    //   } catch (error) {
-    //     console.error("Error deleting product:", error);
-    //   }
-    // },
+
     async deleteProduct(productID) {
       try {
         await axios.delete(`https://fullstackeomp-0asf.onrender.com/products/${productID}`);

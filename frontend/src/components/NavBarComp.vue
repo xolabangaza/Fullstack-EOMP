@@ -1,6 +1,6 @@
 <template>
     
- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+ <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
   <div class="container-fluid">
     <router-link class="navbar-brand" to="/">Serve-Style</router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,8 @@ export default {
       justify-content: space-between;
       align-items: center;
       padding: 0 50px;
+      overflow: none;
+      
     }
     .nav-link{
       color: white;

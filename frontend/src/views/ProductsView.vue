@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div v-if="myProjects" class=" row p-4">
+    <div v-if="myProjects" class=" row p-4 justify-content-evenly">
       <myProdComp/>
-      <router-link to="products/productID">View Details</router-link>
     </div>
     <div v-else>Processing...</div>
   </div>

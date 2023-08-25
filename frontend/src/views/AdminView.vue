@@ -1,56 +1,54 @@
 <template>
   <div>
-    <div>
-      <input
+    <div class="text-center">
+      <h3 class="text-center">Add Products</h3>
+      <input 
         type="text"
         v-model="form.productID"
         style="visibility: hidden; display: none"
       />
       <label>Product Name</label>
-      <input type="text" v-model="form.productName" />
+      <input class="just"  type="text" v-model="form.productName" />
       <label>Product Price</label>
-      <input type="number" v-model="form.productPrice" />
+      <input class="just" type="number" v-model="form.productPrice" />
       <label>Product Stock</label>
-      <input type="number" v-model="form.productStock" />
+      <input class="just" type="number" v-model="form.productStock" />
       <label>Product Url</label>
-      <input type="text" v-model="form.productUrl" />
+      <input class="just" type="text" v-model="form.productUrl" />
       <label>Product Category</label>
       <!-- Fixed typo in label -->
-      <input type="text" v-model="form.category" />
+      <input class="just" type="text" v-model="form.category" />
       <br />
       <button @click="submit()">Submit</button>
     </div>
 
-    <table>
-      <tr>
-        <th>Product Name</th>
-        <th>Product Price</th>
-        <th>Product Stock</th>
-        <th>Product URL</th>
-        <th>Category</th>
-      </tr>
-      <tr>
-        <div
-          v-for="project in myProjects"
-          :key="project.projectID"
-          class="card"
-          id="productTable"
-        >
-          <td>{{ project.productName }}</td>
-          <td>{{ project.productPrice }}</td>
-          <td>{{ project.productStock }}</td>
-          <td>{{ project.productUrl }}</td>
-          <td>{{ project.category }}</td>
-          <td><UpdateProductVue :editProduct="editProduct"/></td>
+    <table class="table">
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Product Price</th>
+      <th>Product Stock</th>
+      <th>Product URL</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="project in myProjects" :key="project.projectID">
+      <td>{{ project.productName }}</td>
+      <td>{{ project.productPrice }}</td>
+      <td>{{ project.productStock }}</td>
+      <td><img :src="project.productUrl" :alt="project.productName"></td>
+      <td>{{ project.category }}</td>
+      <td>
+        <UpdateProductVue :editProduct="editProduct"/>
+        
+        <button @click="deleteProduct(project.productID)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-          <td><button @click="editProduct">Edit Product</button></td>
-          <!-- <td><button @click="editProduct(product)"></button></td> -->
-          <td>
-            <button @click="deleteProduct(project.productID)">Delete</button>
-          </td>
-        </div>
-      </tr>
-    </table>
   <div>
       <div v-if="myProjects" class=" row p-4">
       </div>
@@ -59,16 +57,7 @@
   </div>
 </template>
 <script>
-  // import AddProduct from "@/components/Add-Product.vue";
-  //   export default {
-  //   computed: {
-  //     myProjects() {
-  //     },
-  //   },
-  //   mounted() {
-  //   },
-  //   components: { AddProduct },
-  // };
+
 import axios from "axios";
 import UpdateProductVue from '../components/Update-Product.vue';
 export default {
@@ -126,17 +115,6 @@ export default {
     async submit() {
       try {
         if (this.form.productID) {
-          // Update existing product
-          // await axios.put(
-          //   `https://fullstackeomp-0asf.onrender.com/products/${this.form.productID}`,
-          //   {
-          //     productName: this.form.productName,
-          //     productPrice: this.form.productPrice,
-          //     productStock: this.form.productStock,
-          //     productUrl: this.form.productUrl,
-          //     category: this.form.category,
-          //   }
-          // );
           alert("Product updated successfully");
         } else {
           // Add new product
@@ -154,24 +132,9 @@ export default {
       } catch (error) {
         console.error("Error submitting product:", error);
       }
-      // try {
-      //   await axios.post(`http://localhost:5000/productsAdd`, {
-      //     productName: this.form.productName,
-      //     productPrice: this.form.productPrice,
-      //     productStock: this.form.productStock,
-      //     productUrl: this.form.productUrl,
-      //     category: this.form.category,
-      //   });
-      //   alert("Product updated successfully");
-      //   console.log("Product updated successfully");
-      //   this.resetForm(); // Call the resetForm() method to clear the form
-      //   window.location.reload();
-      // } catch (error) {
-      //   console.error("Error updating product:", error);
-      // }
+
     },
     resetForm() {
-      // Reset the form after successful update
       this.form.productName = "";
       this.form.productPrice = "";
       this.form.productStock = "";
@@ -212,7 +175,7 @@ export default {
         editedProduct
       );
       alert("Product updated successfully");
-      this.$store.dispatch("getmyProjects"); // Refresh product list
+      this.$store.dispatch("getmyProjects"); 
       this.resetForm();
     } catch (error) {
       console.error("Error editing product:", error);
@@ -221,12 +184,18 @@ export default {
 };
 </script>
 <style scoped>
+.just {
+  margin: auto;
+}
+img{
+  width: 100px;
+  height: 110px;
+}
 h1 {
     text-align: center;
   }
   
   form {
-    /* max-width: 800px; */
     margin: 20px auto;
   }
   
@@ -274,7 +243,56 @@ h1 {
   th, td {
     padding: 8px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 4px solid #ddd;
+    
   }
+
+@media screen and (max-width: 700px) {
+  *{
+    overflow: hidden;
+  }
+  input {
+    width: 70%;
+    font-size: 14px; 
+  }
+  
+  button {
+    width: 40%; 
+    font-size: 16px; 
+  }
+  
+  form {
+    padding: 20px; 
+  }
+  
+  h2 {
+    font-size: 28px;
+    margin-top: 20px; 
+    margin-bottom: 20px;
+  }
+  
+  
+  label {
+    font-size: 12px; 
+    margin-top: 3px; 
+  }
+  
+  table {
+    font-size: 10px; 
+  }
+  
+  th, td {
+    padding: 5px; 
+    
+  }
+  
+  
+  img {
+    width: 70px; 
+    height: 80px; 
+  }
+  
+
+}
     
 </style>
