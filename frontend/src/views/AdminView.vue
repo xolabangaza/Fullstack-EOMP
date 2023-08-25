@@ -21,6 +21,29 @@
       <br />
       <button class="button" @click="submit()">Submit</button>
     </div>
+      <h2>Users</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in users" :key="user.id">
+          <td>{{ user.userID }}</td> 
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.gender}}</td>
+          <td>{{ user.userDOB}}</td>
+          <td>{{ user.emailAdd}}</td>
+          <td>{{ user.userPass}}</td>
+          <td>{{ user.userRole}}</td>
+          <td><img src="{{ user.userProfile}} " alt="{{ user.firstName }}"></td>
+          <!-- Add more columns as needed -->
+        </tr>
+      </tbody>
+    </table>
 
     <table class="table">
       <thead>
@@ -151,6 +174,7 @@ export default {
     },
   },
   mounted() {
+     this.fetchUsers();
     this.$store.dispatch("getmyProjects");
   },
   name: "",
@@ -164,6 +188,7 @@ export default {
         productUrl: "",
         category: "",
       },
+        users: [],
     };
   },
   methods: {
@@ -196,6 +221,17 @@ export default {
         console.error("Error fetching products:", error);
       }
     },
+      async fetchUsers() {
+      try {
+        const response = await axios.get(
+          "https://fullstackeomp-0asf.onrender.com/users"
+        );
+        this.users = response.data;
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    },
+  
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    async editProduct() {
   try {
