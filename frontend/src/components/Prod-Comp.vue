@@ -155,7 +155,7 @@ p {
 button {
   margin-bottom: 2rem;
   margin-top: 4px;
-  margin-left: 50px;
+  margin-left: 20px;
   border: 3px solid #f1b4e2;
   border-radius: 2rem;
   text-align: center;
